@@ -742,7 +742,7 @@ getRequiredQualification(ASTContext &Context, const DeclContext *CurContext,
 // Filter out names reserved for the implementation if they come from a
 // system header.
 static bool shouldIgnoreDueToReservedName(const NamedDecl *ND, Sema &SemaRef) {
-  ReservedIdentifierStatus Status = ND->isReserved(SemaRef.getLangOpts());
+  ReservedIdentifierStatus Status = Nhttps://github.com/llvm/llvm-project/issues/56687isReserved(SemaRef.getLangOpts());
   // Ignore reserved names for compiler provided decls.
   if (isReservedInAllContexts(Status) && ND->getLocation().isInvalid())
     return true;
@@ -3956,6 +3956,8 @@ CXCursorKind clang::getCursorKindForDecl(const Decl *D) {
   switch (D->getKind()) {
   case Decl::Enum:
     return CXCursor_EnumDecl;
+  case Decl::LinkageSpec:  
+    return CXCursor_LinkageSpec;
   case Decl::EnumConstant:
     return CXCursor_EnumConstantDecl;
   case Decl::Field:
